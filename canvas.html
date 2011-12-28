@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<!-- 
+  实验HTML5 Canvas
+-->
+<html>
+<head>
+<title>title</title>
+<style type="text/css">
+</style>
+</head>
+<script type="text/javascript">
+
+	// 
+	function hightLightImage(data,h,w,pct){
+		var h2 = h * (1-pct),
+			delimiter = parseInt(w * h2 * 4);
+		for (var i = 0, n = delimiter; i < n; i += 4) {
+			var grayscale = data[i  ] * .3 +data[i+1] * .59 + data[i+2] * .11;
+			 data[i  ] = grayscale;         // red
+			 data[i+1] = grayscale;         // green
+			 data[i+2] = grayscale;         // blue
+		}
+		return data
+	}
+
+	function init(){
+		testHightLightImage();
+	}
+
+	function testHightLightImage(){	
+		var image = document.getElementById("canvasSource");
+		var i =1,max = 4;
+		netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+		while((i++) <= max){
+			var canvas = genCanvas(image,i) 
+			var context = canvas.getContext("2d");
+			context.drawImage(image, 0, 0);			
+			var imgd = context.getImageData(0, 0, image.width,image.height);
+			var pix = hightLightImage(imgd.data, image.width,image.height,0.15*i);
+			context.putImageData(imgd, 0, 0);
+		}
+		testScaledCanvas(image);
+		testSlicingCanvas(image);
+	}
+
+	function testScaledCanvas(image){
+		var c = genCanvas(image)
+		var context = c.getContext("2d");
+		context.drawImage(image, 0, 0,100,40);					
+	}
+
+	function testSlicingCanvas(image){
+		var c = genCanvas(image)
+		var context = c.getContext("2d");
+		context.drawImage(image, 50, 50,100,100,0,0,image.width,image.height);					
+	}
+
+	function genCanvas(img,id){
+		var canvas = document.createElement("canvas");
+		window.document.body.appendChild(canvas);
+		canvas.width = img.width;
+		canvas.height = img.height
+		return canvas;
+	}
+
+</script>
+<body  onload ='init()'>
+
+	<img id='canvasSource'src = 'weibo.jpeg'/>
+	<hr/>
+</body>	
+</html>

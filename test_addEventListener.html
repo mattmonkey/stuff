@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<!-- 
+  实验addEventListener、stopPropagation
+-->
+<html>
+<head>
+<title>title</title>
+<style type="text/css">
+	#outDiv {
+		width:400px; 
+		height:400px;
+		border:#66FF66 1px solid;	
+	}
+	#inDiv {
+		margin:50px;
+		width:200px; 
+		height:200px;
+		border:red 1px solid;	
+	}
+</style>
+</head>
+<script type="text/javascript">
+	// 点击内圈
+	// ture 的话，触发事件早于内层
+	var captureFlg = false;
+
+	var stopPropagationFlg = true; 
+	
+	function handler(evt,src){
+		alert(evt.originalTarget.id +  "|" + src)
+		//  阻止事件传递
+		if (stopPropagationFlg){
+			evt.stopPropagation();
+		}
+	}
+
+	function init(){
+		var outDiv = document.getElementById("outDiv")
+		var inDiv =  document.getElementById("inDiv")
+		outDiv.addEventListener("click",function(event){handler(event,"外圈")},captureFlg)
+		inDiv.addEventListener("click",function(event){handler(event,"内层")})
+	}
+</script>
+<body  onload ='init()'>
+	<div id='outDiv'>
+		<div id='inDiv'>click me</div>
+	</div>
+</body>	
+</html>

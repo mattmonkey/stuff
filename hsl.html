@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<!-- 
+  实验HTML5 Canvas
+-->
+<html>
+<head>
+<title>title</title>
+<style type="text/css">
+</style>
+</head>
+<script type="text/javascript">
+
+	// 
+	function hightLightImage(data,h,w,pct){
+		var h2 = h * (1-pct),
+			delimiter = parseInt(w * h2 * 4);
+		for (var i = 0, n = delimiter; i < n; i += 4) {
+			var grayscale = data[i  ] * .3 +data[i+1] * .59 + data[i+2] * .11;
+			 data[i  ] = grayscale;         // red
+			 data[i+1] = grayscale;         // green
+			 data[i+2] = grayscale;         // blue
+		}
+		return data
+	}
+
+	function init(){
+		testHightLightImage();
+	}
+
+	function testHightLightImage(){	
+		var canvas = document.getElementById("canvas");
+		var image = document.getElementById("canvasSource");
+		var i =1,max = 4;
+		//netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+		var  context = canvas.getContext("2d");
+		testLightness(context )
+		testLogo(context ,image,60,70,0)
+		testLogo(context ,image,60,140,1)
+		testLogo(context ,image,60,210,2)
+	}
+
+	function testLogo(context,image,size,pos,sp){
+		for(var i = 0;i<10;i++){
+			context.drawImage(image, i*size, pos,size,size);			
+			var imgd = context.getImageData(i*size, pos,size,size);
+			LightHandler3(imgd.data,0.1*i,sp);
+			context.putImageData(imgd, i*size, pos);
+		}
+	}
+
+	function LightHandler3(data,pct,sp){
+		var len = data.length,cnt = 0 ;
+		for(var i=0;len-i>0;i+=4){
+			var HSL = toHsl.apply(null,[data[i],data[i+1],data[i+2]]);
+			HSL[sp] = pct
+			var rgb =  toRgb.apply(null,HSL)
+			data[i]=rgb[0]
+			data[i+1]=rgb[1]
+			data[i+2]=rgb[2]
+		}
+	}
+
+function testLightness(context){
+	for(var i =0;i<10;i++){
+		context.fillStyle = "rgb("+ toRgb(i/10 ,0.55, 0.6).join(",")+")";
+			context.fillRect(i*60,0,60,60);
+		}
+	}
+
+	function testLogo2(context,image){
+		for(var i = 0;i<10;i++){
+			context.drawImage(image, i*60, 140,60,60);			
+			var imgd = context.getImageData(i*60, 140,60,60);
+			LightHandler3(imgd.data,0.1*i,0);
+			context.putImageData(imgd, i*60, 140);
+		}
+	}
+	function LightHandler(RGB,pct){
+		var HSL = toHsl.apply(null,RGB);
+		HSL[2] = pct
+			var rgb =  toRgb.apply(null,HSL)
+		return "rgb("+rgb.join(',')+")"
+	}
+
+	function toHsl(r, g, b){
+		r /= 255, g /= 255, b /= 255;
+		var max = Math.max(r, g, b), min = Math.min(r, g, b);
+		var h, s, l = (max + min) / 2;
+		if(max == min){
+			h = s = 0; // achromatic
+		}else{
+				var d = max - min;
+			s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+			switch(max){
+				case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+				case g: h = (b - r) / d + 2; break;
+				case b: h = (r - g) / d + 4; break;
+			}
+			h /= 6;
+		}
+		return [h, s, l];
+	}
+
+	function toRgb(h, s, l){
+		var r, g, b;
+
+		if(s == 0){
+			r = g = b = l; // achromatic
+		}else{
+        function hue2rgb(p, q, t){
+            if(t < 0) t += 1;
+            if(t > 1) t -= 1;
+            if(t < 1/6) return p + (q - p) * 6 * t;
+            if(t < 1/2) return q;
+            if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+            return p;
+        }
+
+        var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        var p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1/3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1/3);
+		}
+
+		return [parseInt(r * 255), parseInt(g * 255), parseInt(b * 255)];
+	}
+
+
+
+</script>
+<body  onload ='init()'>
+	<img src='weibo.jpeg' id="canvasSource">
+	<br/>
+	<canvas width='800px' height='800px' id='canvas'><canvas/>
+	<hr/>
+</body>	
+</html>
