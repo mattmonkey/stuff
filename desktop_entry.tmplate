@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Exec=
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=false
+Name[zh_CN]=type a name
+Name=
+Comment[zh_CN]=
+Comment=
+Icon=
+Terminal=false
+StartupNotify=true
+Categories=Application;Development;
