@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<!-- 
+  实验HTML5 Canvas
+-->
+<html>
+<head>
+<title>title</title>
+<style type="text/css">
+</style>
+</head>
+<script type="text/javascript">
+	(function(){
+		var __scope = this
+		eval.call(__scope,"var a={ x:'123'}")
+		alert(a.x)
+		alert(this.a.x)
+
+		var v ={x:"1234"}
+		alert(v.x)
+		alert(this.v) // undefined
+	})()
+</script>
+<body  onload ='init()'>
+	<hr/>
+</body>	
+</html>
