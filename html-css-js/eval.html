@@ -3,24 +3,72 @@
   实验HTML5 Canvas
 -->
 <html>
-<head>
+
+	<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title>title</title>
 <style type="text/css">
 </style>
 </head>
 <script type="text/javascript">
-	(function(){
-		var __scope = this
-		eval.call(__scope,"var a={ x:'123'}")
-		alert(a.x)
-		alert(this.a.x)
+	var code = "var EXPORT=[test,test2];\n var v=123;function test2(){return test() + 2} function test(){return v;}",
+	head = "new function(){",
+	end = "}",
+	ns = {},
+	magic;
 
-		var v ={x:"1234"}
-		alert(v.x)
-		alert(this.v) // undefined
-	})()
+	ns.app = {}
+	
+
+	function nsmng(code){
+		var list = (code.slice(0,code.indexOf("\n"))||"").trim();
+		list = parseExportList(list);
+		magic=genMagicString(list);
+		list = head + code +magic + end;
+		ns.app= eval(list)
+
+		alert(ns.app.test())
+		alert(ns.app.test2())
+
+		// 异常
+		// alert(test)  
+		// alert(test2)
+		// alert(v)
+		// alert(EXPORT)
+	}
+
+
+function parseExportList(list){
+	if(/var\s*EXPORT\s*=\s*\[.*\]\s*\;*$/.test(list)){
+		return list.match(/\[.*\]/)[0].slice(1,-1)
+	}
+	throw "format error"
+}
+
+function genMagicString(list){
+	var data = list.split(',').map(function(obj){
+			return 	"this.%1=%1;".replace(/\%1/g,obj)
+	}).join("\n")
+	return (data)
+
+}
+
+
+//nsmng(code);
+testEval();
+
+	function testEval(){
+		eval(code)
+		alert("普通eval测试 " + (test?"污染":"没污染window"))
+		delete test;
+
+		eval.call(ns,code)
+		alert("eval 上下文测试 " + (ns.test?"加入命名空间":"没加入命名空间"))
+		alert("eval 上下文测试 " + (test?"污染window":"没污染"))
+	}
 </script>
-<body  onload ='init()'>
+<body>
 	<hr/>
 </body>	
 </html>
