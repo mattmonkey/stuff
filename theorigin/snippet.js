@@ -1,4 +1,4 @@
-var EXPORT = [__customMenus, restartBrowser, getTitle, getAgent, getTitleAndUrl];
+var EXPORT = [__customMenus, restartBrowser, getTitle, getAgent, getTitleAndUrl,txt2image];
 
 // __customMenus对象的内容会被注册成一个菜单。
 // key是被调用的函数或者对象。value是菜单
@@ -8,7 +8,8 @@ var __customMenus = {
 	"getAgent": "小工具.复制UserAgent",
 	"getTitleAndUrl": "小工具.复制标题和链接",
 	"openProfileDirectory": "打开配置文件",
-	"restartBrowser": "重启"
+	"restartBrowser": "重启",
+	"txt2image":"文字变图片"
 }
 
 // 1、注册对象/方法的方式一，使用this
@@ -48,3 +49,18 @@ var restartBrowser = function() {
 	Services.appinfo.invalidateCachesOnRestart() || Application.restart()
 }
 
+
+function txt2image(){
+var req = new XMLHttpRequest();
+var canvas = document.createElementNS("http://www.w3.org/1999/xhtml", "canvas");
+var ctx = canvas.getContext("2d");
+var rect = content.document.querySelector(".tb-editor-editarea").getClientRects()[0];
+canvas.width = rect.width - 20;
+canvas.height = rect.height;
+ctx.drawWindow(content, content.pageXOffset + rect.left, content.pageYOffset + rect.top, canvas.width, canvas.height, "rgb(255,255,255)");
+req.open("POST", "http://upload.tieba.baidu.com/upload/pic", false);
+req.setRequestHeader("Content-Type", "multipart/form-data; charset=ascii; boundary=----------gL6Ef1gL6gL6ei4ae0KM7ei4ae0gL6", false);
+req.sendAsBinary(decodeURIComponent('------------gL6Ef1gL6gL6ei4ae0KM7ei4ae0gL6%0AContent-Disposition%3A%20form-data%3B%20name%3D%22Filename%22%0A%0A38dbb6fd5266d016d5c0aa63972bd40734fa353b.jpg%0A------------gL6Ef1gL6gL6ei4ae0KM7ei4ae0gL6%0AContent-Disposition%3A%20form-data%3B%20name%3D%22tbs%22%0A%0A5b67dcdf42424dd2013257610020125500_1%0A------------gL6Ef1gL6gL6ei4ae0KM7ei4ae0gL6%0AContent-Disposition%3A%20form-data%3B%20name%3D%22file%22%3B%20filename%3D%2238dbb6fd5266d016d5c0aa63972bd40734fa359b.jpg%22%0AContent-Type%3A%20application%2Foctet-stream%0A%0Aimagedata%0A------------gL6Ef1gL6gL6ei4ae0KM7ei4ae0gL6%0AContent-Disposition%3A%20form-data%3B%20name%3D%22Upload%22%0A%0ASubmit%20Query%0A------------gL6Ef1gL6gL6ei4ae0KM7ei4ae0gL6--%0A').replace("imagedata", (atob(canvas.toDataURL().replace(/.+?base64,/, "")))));
+content.document.querySelector(".tb-editor-editarea").innerHTML = "<img  class='BDE_Image' src =http://imgsrc.baidu.com/forum/pic/item/" + JSON.parse(req.responseText).info.pic_id_encode + ".jpg>";
+}
+//setTimeout(function () {content.document.querySelector("table *[type=submit]").click()},1000);

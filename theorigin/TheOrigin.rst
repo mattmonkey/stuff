@@ -1,5 +1,5 @@
-The Origin 脚本编写
-====================
+The Origin 脚本编写(未完)
+=========================
 
 宗旨
 ^^^^
@@ -21,12 +21,6 @@ The Origin提供什么？
 
 
 
-安装
-^^^^^
-
-1.  解压TheOrigin.tar文件到Home目录。
-2.  复制Loader到keyconfig。
-
 目录结构
 ^^^^^^^^
     
@@ -47,8 +41,6 @@ The Origin提供什么？
 
 
 
-细节
-`Python <http://www.python.org/>`_.
 
 
 
