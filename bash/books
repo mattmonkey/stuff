@@ -1,0 +1,54 @@
+#!/bin/bash
+#记录查询目录的作用
+
+home="/home/`whoami`/.books"
+dirs_conf="$home/dirs.conf"
+
+init(){
+	# 配置文件目录
+	if [ ! -e "$home" ] ; then
+		echo "does not exist $home"
+		mkdir $home
+	fi
+	
+	# 配置文件
+	if [ ! -f "$dirs_conf" ]; then
+		echo "does not exist $dir_conf"
+		touch $dirs_conf
+	fi
+}
+
+searchbooks(){
+	local re="/^\\$1[[:space:]]/p"
+	echo
+	sed -n -e "$re" "$dirs_conf" 
+	echo 
+}
+
+error(){
+	echo "$1"
+	exit 1
+}
+
+getpath(){
+	local dir_name="$1"
+	if [ "$1" == "." ] ; then
+		dir_name=`pwd`
+	fi
+	echo "$dir_name"
+}
+
+init
+
+
+if [ "$#" -eq 0 ] ; then
+	cat "$dirs_conf" | less
+	exit 0
+fi
+
+if [ "$#" -eq 1 ] ; then
+	dir_name=$(getpath $1)
+	searchbooks "$dir_name"	
+fi
+
+

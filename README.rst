@@ -4,29 +4,38 @@
 目录
 ----
 
+
+
+- bash
+
+  ::
+
+    ubuntu下编写脚本和环境配置文件的备份
+
+- firefox
+    
+  ::
+
+    firefox浏览器相关的配置和脚本
+
+
 - html-css-js
-    
-    html5/css/js的试验
-    
+
+  ::    
+
+    各种js试验的Demo
+
+- python
+
+- theorigin
+
+- ubuntu
+
+  ::
+
+    学习总结笔记
+
 文件
 ----
 
-- addon_evn_inti.js
-    
-    初始化firefox扩展开发环境的参数
-
-- addon_packaging.bat
-
-    window下firefox扩展打包批处理
-
-- addon_packaging.py
-
-    python写的firefox扩展打包脚本
-
-- desktop_entry.tempale
-
-    ubuntu桌面配置文件(启动器)模板
-
-- eclipse_plugin.rst
-
-    eclipse插件安装笔记
+- gen_html_sites

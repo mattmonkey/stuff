@@ -1,0 +1,3 @@
+#!/bin/bash
+# 只显示文件 
+ls -lF $1 | awk '/^-/ {print $8}'

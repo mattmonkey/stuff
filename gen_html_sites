@@ -1,0 +1,16 @@
+#!/bin/bash
+targetdir=`dirname "$0"`
+sourcedir="$targetdir/tmp/sphinx"
+
+echo $targetdir
+
+#cleanup
+rm -rf $sourcedir/source/ubuntu
+
+#copying
+cp -r $targetdir/ubuntu  $sourcedir/source/
+
+sphinx-build -b html $sourcedir/source $sourcedir/build
+
+
+

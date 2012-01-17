@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# 测试用 
+
+print_bround(){
+	echo 
+	echo "##########################"
+	echo
+}
+
+print_bround
+echo `pwd`
+echo name of script is $0
+echo first argument is $1
+echo second argument is $2
+echo seventeenth argument is $17
+echo number of arguments is $#
+echo all of argument is $@
+print_bround
+

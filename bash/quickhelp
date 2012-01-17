@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#快速查看命令帮助
+
+if [ $# -ne 1 ];then
+	echo "1 argument expected;"
+	exit 1
+fi
+
+$1 --help | less

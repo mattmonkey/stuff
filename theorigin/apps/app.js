@@ -73,12 +73,21 @@ var app = {
 
 	executeCmd: function(cmd, args) {
 		var processor = app.ccc("nsIProcess");
+		if(typeof cmd =="string"){
+			cmd = app.getAFile(cmd);
+		}
 		processor.init(cmd)
 		processor.run(false, args, args.length)
 	},
 
 	getSelectedTxt: function() {
 		return content.getSelection().toString();
+	},
+
+	saveAsTextFile2: function(txt,filename) {
+		txt = btoa(unescape(encodeURIComponent(txt)));
+		saveImageURL("data:text/plain;charset=UTF-8;base64," + txt, filename,0,0,1);
+
 	},
 
 	saveAsTextFile: function(txt) {
@@ -112,6 +121,14 @@ var app = {
 			str2 += char
 		}
 		return str2 + str
+	},
+
+	getTitle :function(){
+		return 	document.title;	  
+	},
+
+	getUrl : function(){
+		return content.document.location.href;		 
 	}
 }
 
