@@ -10,6 +10,14 @@
    
         gvim /var/lib/dpkg/status
 
+#. mp3转码
+
+    ::
+
+        sudo apt-get install convmv iconv python-mutagen
+        find . -iname "*.mp3" -execdir mid3iconv -e GBK {} \;
+    
+
 
 #. 修改相关项目的 **Status** 字段。 [1]_
 
@@ -59,6 +67,25 @@
     ::
 
         sudo update-burg
+
+
+xterm解决中文问题
+------------------
+1. 写配置文件
+
+   ::
+    
+        ! English font
+        xterm*faceName: DejaVu Sans Mono:antialias=True:pixelsize=14
+        ! Chinese font
+        xterm*faceNameDoublesize: WenQuanYi Micro Hei:pixelsize=14
+
+
+#. 加载配置文件
+
+    ::
+
+        xrdb -load .Xdefaults
 
 
 |

@@ -3,7 +3,7 @@
 #conf_name = "/etc/lightdm/unity-greeter.conf"
 
 import os,re,random,shutil  
-dirs=["/media/resource_backup/SyncDisk/pic/1280X80/风景"];
+dirs=["/media/sda7/SyncDisk/pic/1280X80/风景"];
 target_pic="/home/matt/.simpleLigtDMManager/file.jpg"
 pic_pattern = re.compile(".*\.(jpg|png|jpeg|gif)$")
 

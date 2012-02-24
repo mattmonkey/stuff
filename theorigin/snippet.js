@@ -9,9 +9,38 @@ var __customMenus = {
 	"getTitleAndUrl": "小工具.复制标题和链接",
 	"openProfileDirectory": "打开配置文件",
 	"restartBrowser": "重启",
-	"txt2image": "文字变图片",
+	"txt2image": "贴吧文字变图片",
 	"getTitleAndUrl2HTML":"小工具.复制标题和链接的HTML格式",
-	"ubuntuInstaller":"页面执行终端命令",
+	"dencodeThunder":"下载迅雷链接",
+	"exeCmdStr":"执行页面命令",
+	"cpCmdStr":"复制多行页面命令"
+}
+
+
+this.exeCmdStr = function(){
+	var cmds = app.getSelectedTxt();
+	cmds = cmds.replace(/\n/g,';')
+	var args=["-e",cmds+" ;sleep 3"]
+	app.executeCmd("/usr/bin/xterm",args)	
+}
+
+this.cpCmdStr = function(){
+	var cmds = app.getSelectedTxt();
+	cmds = cmds.replace(/\n/g,';')
+	app.simpleCopy(cmds);
+	alert("done")
+}
+
+this.dencodeThunder = function(){
+	var elm = app.getActiveElm();
+	if(elm==null || elm.tagName !="A") {
+		alert("不是一个链接!")
+		return;
+	}else if(!/^thunder\:\/\//.test(elm.href)){
+		alert("不是迅雷链接!")
+	}	
+	var newlink = content.atob(elm.href.slice(10)).slice(2,-2)
+	app.saveImage(app.toUnicode("gbk",newlink));
 }
 
 // 1、注册对象/方法的方式一，使用this
@@ -59,15 +88,15 @@ var getTitleAndUrl2HTML = function(){
 	})
 }
 
-this.ubuntuInstaller = function(){
-	var cmdstr = app.getSelectedTxt().replace(/sudo/g,"&& sudo").slice(3);
-	var appname = cmdstr.match(/install\s.*/)[0].slice(8).trim()
-	cmdstr += (" && sudo apt-add-repository -r " + cmdstr.match(/ppa:[^\s]*\s/))
-	var args=["-e",cmdstr]
-	app.executeCmd("/usr/bin/xterm",args)
-	var shelllHead = "#!/bin/bash\n"
-	app.saveAsTextFile2(shelllHead+cmdstr,appname+".sh")
-}
+//this.ubuntuInstaller = function(){
+	//var cmdstr = app.getSelectedTxt().replace(/sudo/g,"&& sudo").slice(3);
+	//var appname = cmdstr.match(/install\s.*/)[0].slice(8).trim()
+	//cmdstr += (" && sudo apt-add-repository -r " + cmdstr.match(/ppa:[^\s]*\s/))
+	//var args=["-e",cmdstr]
+	//app.executeCmd("/usr/bin/xterm",args)
+	//var shelllHead = "#!/bin/bash\n"
+	//app.saveAsTextFile2(shelllHead+cmdstr,appname+".sh")
+//}
 
 function txt2image() {
 	var req = new XMLHttpRequest();

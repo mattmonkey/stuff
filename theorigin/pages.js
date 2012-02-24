@@ -12,25 +12,24 @@ var __customMenus = {
 }
 
 this.saveReguralImages = function() {
-	var rslt = prompt("批量下载器\n\n 输入格式: url样式 \n  http://a.com/b{13-18}.jpg \n")
+	var rslt = prompt("批量下载器\n\n 输入格式: url样式 \n  http://a.com/b{13-18}.jpg \n");
 	if (rslt.trim()) {
 		var ranges = rslt.match(/\{\d+\-\d+\}/)[0].slice(1,-1).split("-");
-		var len = ranges[0].length
+		var len = ranges[0].length;
 		rslt = rslt.replace(/\{\d+\-\d+\}/,"$");	
 
 		if (!confirm(app.p("下载数量为%1,是否继续", ranges[1] - ranges[0] + 1))) {
 			return;
 		}
 
-		var s = parseInt(ranges[0]),
-			e = parseInt(ranges[1]);
+		var s = parseInt(ranges[0]),e = parseInt(ranges[1]);
 
 	   for (var i = s; i <=e ; i++) { (function(i) {
 				var str = app.fillChar(i,len,"0");
 				setTimeout(function() {
-					app.saveImage(rslt.replace("$",str))
+					app.saveImage(rslt.replace("$",str));
 				},
-				1500 * (i - s))
+				1500 * (i - s));
 			})(i);
 		}
 	}
@@ -68,29 +67,31 @@ var saveSelectedImage = function(evalFlg) {
 	})
 	if (!evalFlg) {
 		links.forEach(function(link) {
-			if (link) app.saveImage(link)
+			if (link) app.saveImage(link);
 		})
 	}
 	return links
 }
 
 var openSelectionLinks = function(evalFlg) {
-	var source = app.getSelectionSource()
-	var data = source.match(/href=\"[^"]*\"/g)
-	var hostname = content.document.location.hostname
+	var source = app.getSelectionSource();
+	var data = source.match(/href=\"[^"]*\"/g);
+	var hostname = content.document.location.hostname;
 	var links = data.map(function(link) {
-		link = link.slice(6, - 1)
+		link = link.slice(6, - 1);
 		if (/^\#/.test(link)) {
-			return ""
+			return "";
 		}
 		if (!/^http(|s)/.test(link)) {
-			link = (hostname + "/" + link)
+			link = (hostname + "/" + link);
 		}
-		return link
+		return link;
 	})
 	if (!evalFlg) {
+		var checked={}
 		links.forEach(function(link) {
-			if (link) gBrowser.addTab(link)
+			if (link && !checked[link]) gBrowser.addTab(link)
+			checked[link]=1
 		})
 	}
 	return links
@@ -100,19 +101,22 @@ this.openSelectionLinks2 = function() {
 	var links = openSelectionLinks(true)
 
 	var list = links.slice(0, 10).reduce(function(l, l2) {
-		return l + "\n" + l2
+		return l + "\n" + l2;
 	})
 
 	if (links.length > 0) {
-		var re = prompt(app.p("部分数据供参考：\n %1 \n输入正则...", list), "")
+		var re = prompt(app.p("部分数据供参考：\n %1 \n输入正则...", list), "");
 		if (!re.trim()) {
 			return;
 		}
 	}
+	
 	var reg = new RegExp(re);
+	var checked={};
 	links.forEach(function(link) {
-		reg.test(link) && gBrowser.addTab(link)
-	})
+		reg.test(link)  && !checked[link] && gBrowser.addTab(link);
+		checked[link]=1;
+	});
 }
 
 this.showSelectionSource = function() {
@@ -127,7 +131,7 @@ this.saveSelectedTxt = function() {
 	app.saveAsTextFile(app.getSelectedTxt())
 }
 
-this.copySimpleTxtToClipBoard = function() {
+this.copySimpleTxtToClipBoard = function () {
 	var copytext = new String(app.getSelectedTxt());
 	app.setClipBoard({
 		"text/unicode": copytext,

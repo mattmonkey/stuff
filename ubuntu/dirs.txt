@@ -1,0 +1,21 @@
+/etc/passwd
+/etc/shadow
+/var/log/lastlog
+/bin/bash
+/etc/group
+/etc/profile
+/etc/bash.bashrc
+/etc/skel
+/etc/bash_completion
+/dev/pts
+/usr/lib/locale
+/etc/init.d
+/var/lib/mlocate
+
+
+- /var/lib/apt/lists	apt索引目录 
+- /var/cache/apt/archives	apt缓存目录
+- /etc/apt/sources.list	
+- /etc/apt/apt.conf.d
+
+

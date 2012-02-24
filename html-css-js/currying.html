@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=gb2312">
+<title>Currying</title>
+<style type="text/css"></style>
+
+</head>
+<script type="text/javascript" src=""></script>
+<script type="text/javascript">
+
+	function testCurrying(){
+      function curry(fun) {
+        if (typeof fun != 'function') {
+          throw new Error("The argument must be a function.");
+        }
+        if (fun.arity == 0) {
+          throw new Error("The function must have more than one argument.");
+		}
+        var funText = fun.toString();
+        var args = /function .*\((.*)\)(.*)/.exec(funText)[1].split(', ');
+        var firstArg = args.shift();
+        var restArgs = args.join(', ');
+        var body = funText.replace(/function .*\(.*\) /, "");
+
+        var curriedText =
+          "function (" + firstArg + ") {" +
+          "return function (" + restArgs + ")" + body +
+          "}";
+
+		eval("var curried =" + curriedText);
+		// alert(curried.toString())
+		return curried;
+      }
+
+      function sum(x, y) {
+        return x + y;
+      }
+      function mean3(a, b, c) {
+        return (a + b + c)/3;
+      }
+
+      //var a = curry(sum)(10)(15)
+      //alert(a)//25
+      //var b = curry(mean3)(10)(20, 30);
+      //alert(b)//20
+      //var c =  curry(curry(sum))(10)()(20);
+      //alert(c);
+      //var d = curry(curry(mean3)(10))(20)(30);
+      //alert(d);
+	}
+
+function testCurrying2(){
+ 
+      function sum(){
+        var result=0;
+        for(var i=0, n=arguments.length; i<n; i++){
+          result += arguments[i];
+        }
+        return result;
+	  };
+      var curry = function(fn){//原函数的参数为函数
+        return function(args){//内部函数的参数为数组，由于立即执行，因此直接到第三重去
+          var self= arguments.callee;//把自身保存起来
+          return function(){ //这才是第二次调用的函数
+            if(arguments.length){//如果还有要添加的参数
+              [].push.apply(args,arguments);
+              return self(args);
+            }
+            else return fn.apply(this,args);//执行
+          }
+        }([]);
+      };
+
+      var sum2= curry(sum);
+      sum2= sum2(1)(2)(3)(4)(5);
+	  alert(sum2());
+
+	  
+      var sum2= curry(sum);
+      sum2= sum2(1,2,3);
+      sum2= sum2(4,5,6);
+      sum2= sum2(7,8,9);
+	  alert(sum2());
+}
+	   
+	  function testCurrying3(){
+		  function curry(f) {
+			if (f.length == 0) return f;
+			function iterate(args) {
+			  if (args.length >= f.length)
+				return f.apply(null, args);
+			  return function () {
+				return iterate(args.concat(Array.prototype.slice.call(arguments)));
+			  };
+			}
+			return iterate([]);
+		  }
+		  function mean3(a, b, c) { return (a + b + c) / 3; }
+
+
+		  var curriedMean3 = curry(mean3);
+		  alert(curriedMean3(1)(2,3)); // => 2
+		  alert(curriedMean3(1)(2)(3));//空括号无效
+		  alert(curriedMean3()(1)()(2)()(3)); // => 2
+		  alert(curriedMean3(1, 2)(3, 4)); // => 2 (第四个参数无效)
+	  }
+
+// testCurrying2()
+
+  Function.prototype.curry = function() {
+    var fn = this, args = Array.prototype.slice.call(arguments);
+    return function() {
+      return fn.apply(this, args.concat(
+        Array.prototype.slice.call(arguments)));
+    };
+  };
+
+   function sum(x,y,z){
+	 return x+y+z
+   }
+	sum2 = sum.curry(1)
+	alert(sum2.curry(2)(3))
+
+</script>
+<body>
+
+</body>
+</html>

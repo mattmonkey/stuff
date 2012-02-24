@@ -1,0 +1,4 @@
+#! /bin/bash
+
+seconds=1
+sudo sleep "$((seconds * $1))"; echo 123 

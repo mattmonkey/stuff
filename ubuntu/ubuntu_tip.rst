@@ -3,6 +3,15 @@ ubuntu11.10
 
 software
 ---------
+Amule
+
+    ::
+
+        ed2k://server|no1.eserver.emule.org.cn|8080|
+        ed2k://server|no2.eserver.emule.org.cn|8080|
+        http://www.emule.org.cn/server.met    
+
+
 
 LightDM
 
@@ -55,4 +64,47 @@ xdg-user-dirs
     ::
 
         定制Downloads、Documents等目录的语言
+ 
+
+classicmenu-indicator
+
+    ::
+
+        sudo apt-add-repository ppa:diesch/testing
+        sudo apt-get update
+        sudo apt-get install classicmenu-indicator
+
+source
+
+    `163 <http://mirrors.163.com/>`_
+    
+    ::
+
+        编辑/etc/apt/sources.list文件, 在文件最前面添加以下条目(操作前请做好相应备份)
+
+        deb http://mirrors.163.com/ubuntu/ karmic main restricted universe multiverse
+        deb http://mirrors.163.com/ubuntu/ karmic-security main restricted universe multiverse
+        deb http://mirrors.163.com/ubuntu/ karmic-updates main restricted universe multiverse
+        deb http://mirrors.163.com/ubuntu/ karmic-proposed main restricted universe multiverse
+        deb http://mirrors.163.com/ubuntu/ karmic-backports main restricted universe multiverse
+        deb-src http://mirrors.163.com/ubuntu/ karmic main restricted universe multiverse
+        deb-src http://mirrors.163.com/ubuntu/ karmic-security main restricted universe multiverse
+        deb-src http://mirrors.163.com/ubuntu/ karmic-updates main restricted universe multiverse
+        deb-src http://mirrors.163.com/ubuntu/ karmic-proposed main restricted universe multiverse
+        deb-src http://mirrors.163.com/ubuntu/ karmic-backports main restricted universe multiverse
+
+
+
+Epiphany
+
+
+    ::
+
+        首先需要Epiphany 3.2.0,可以通过WebUpd8 GNOME 3 PPA获取:
         
+        sudo add-apt-repository ppa:webupd8team/gnome3
+        sudo apt-get update
+        sudo apt-get install epiphany-browser
+
+
+

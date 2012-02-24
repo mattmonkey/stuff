@@ -1,0 +1,13 @@
+#!/bin/bash
+# 解压最新的文件到临时目录
+
+homedir="/home/`whoami`";
+source=`ls -ltc $homedir/Downloads/*.tar.gz | awk 'NR==1 {print $8}'`;
+filename="`basename $source`";
+target="/tmp/${filename:0:-7}";
+echo source $source;
+echo target $target;
+rm -rf "$target";
+mkdir "$target";
+tar zxf $source -C "$target";
+nautilus "$target/";

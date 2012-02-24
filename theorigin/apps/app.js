@@ -3,6 +3,7 @@ var app = {
 
 	mapping: {
 		"mozIJSSubScriptLoader": "@mozilla.org/moz/jssubscript-loader;1",
+		"nsIScriptableUnicodeConverter":"@mozilla.org/intl/scriptableunicodeconverter",
 		"nsIProcess": "@mozilla.org/process/util;1",
 		"nsIClipboardHelper": "@mozilla.org/widget/clipboardhelper;1",
 		"nsILocalFile": "@mozilla.org/file/local;1",
@@ -13,11 +14,11 @@ var app = {
 	},
 
 	ccc: function(arg) {
-		return ccc(app.mapping[arg], arg)
+		return ccc(app.mapping[arg], arg);
 	},
 
 	ccs: function(arg) {
-		return ccs(app.mapping[arg], arg)
+		return ccs(app.mapping[arg], arg);
 	},
 
 	getOS: function() {
@@ -31,19 +32,25 @@ var app = {
 
 	setClipBoard: function(data) {
 		var trans = app.ccc("nsITransferable");
-		if (!trans) return false;
+		if (!trans){ 
+			return false;
+		}
 		for (var flavor in data) {
 			var copytext = new String(data[flavor]);
 			var str = app.ccc("nsISupportsString");
-			if (!str) return false;
-			str.data = copytext
+			if (!str) { 
+				return false;
+			}
+			str.data = copytext;
 			trans.addDataFlavor(flavor);
 			trans.setTransferData(flavor, str, copytext.length * 2);
 		}
 
 		var clipid = Components.interfaces.nsIClipboard;
 		var clip = app.ccs("nsIClipboard");
-		if (!clip) return false;
+		if (!clip) {
+			return false;
+		}
 		clip.setData(trans, null, clipid.kGlobalClipboard);
 		return;
 	},
@@ -51,7 +58,7 @@ var app = {
 	getAFile: function(path) {
 		var localFile = app.ccc("nsILocalFile");
 		localFile.initWithPath(path);
-		return localFile
+		return localFile;
 	},
 
 	getSelectionSource: function() {
@@ -67,8 +74,8 @@ var app = {
 			var docfrag = range.cloneContents();
 			spanNode.appendChild(docfrag);
 			rslt += spanNode.innerHTML;
-		};
-		return rslt
+		}
+		return rslt;
 	},
 
 	executeCmd: function(cmd, args) {
@@ -76,8 +83,8 @@ var app = {
 		if(typeof cmd =="string"){
 			cmd = app.getAFile(cmd);
 		}
-		processor.init(cmd)
-		processor.run(false, args, args.length)
+		processor.init(cmd);
+		processor.run(false, args, args.length);
 	},
 
 	getSelectedTxt: function() {
@@ -110,25 +117,36 @@ var app = {
 	},
 
 	log: function() {
-		Application.console.log(app.p.apply(null, arguments))
+		Application.console.log(app.p.apply(null, arguments));
 	},
 
 	fillChar: function(str, len, char) {
 		str = new String(str);
-		len = len - str.length
-		var str2 = ""
+		len = len - str.length;
+		var str2 = "";
 		while (len--) {
-			str2 += char
+			str2 += char;
 		}
-		return str2 + str
+		return str2 + str;
 	},
 
 	getTitle :function(){
-		return 	document.title;	  
+		return 	document.title;
 	},
 
 	getUrl : function(){
 		return content.document.location.href;		 
+	},
+
+	getActiveElm: function(){
+		return content.document.activeElement;
+	},
+
+	toUnicode : function(encoding,str){
+		var converter  = this.ccc("nsIScriptableUnicodeConverter");  
+		converter.charset = encoding;  
+		return converter.ConvertToUnicode(str);			 
 	}
+	
 }
 
