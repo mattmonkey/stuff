@@ -1,7 +1,9 @@
+********************
 疑难解决
-========
+********************
 
-删除软件（usplash）失败
+
+删除软件异常
 ------------------------
 
 1. 找到dpkg数据文件 
@@ -10,12 +12,6 @@
    
         gvim /var/lib/dpkg/status
 
-#. mp3转码
-
-    ::
-
-        sudo apt-get install convmv iconv python-mutagen
-        find . -iname "*.mp3" -execdir mid3iconv -e GBK {} \;
     
 
 
@@ -24,6 +20,18 @@
     ::
     
         Status: purge ok not-installed
+
+
+
+.. index:: find , mp3
+        
+Mp3 标签乱码
+-------------
+
+    ::
+
+        sudo apt-get install convmv iconv python-mutagen
+        find . -iname "*.mp3" -execdir mid3iconv -e GBK {} \;
 
 
 修改登录画面（lightdm）

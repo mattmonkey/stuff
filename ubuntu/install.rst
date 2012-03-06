@@ -1,6 +1,14 @@
-设置最快的源
-------------
- 
+************************
+安装系统和软件
+************************
+
+
+
+本地升级
+----------
+
+:ref:`mount-iso`
+
 配置
 -----
 
@@ -34,14 +42,26 @@
 
         http://code.google.com/p/pomodairo/
 
+
 - flashplugin
     
     ::
 
         http://get.adobe.com/cn/flashplayer/completion/?installer=Flash_Player_11_for_other_Linux_(.tar.gz)_32-bit
         /usr/lib/firefox-addons/plugins/
- 
 
+ 
+- indicator-places
+  
+  ::
+
+    https://github.com/shamil/indicator-places
+
+- feed indicator
+
+    ::
+
+        http://forum.ubuntu.org.cn/feed.php
 
 
 deb备份和还原
@@ -97,6 +117,10 @@ PPA
 
         sudo add-apt-repository ppa:paullo612/unityshell-rotated
 
+
+.. index::
+    single:Terminal;nautilus termianl
+
 #. Nautilus Terminal
 
     ::
@@ -104,6 +128,8 @@ PPA
         sudo add-apt-repository ppa:flozz/flozz
 
 
+    配置文件    
+    
     ::
 
         [general]
@@ -119,12 +145,21 @@ PPA
         #使用shell（Nautilus Terminal默认使用用户定义的shell）
         shell=/bin/bas
 
+
+#. Ubuntu-tweak
+
+    ::
+
+        sudo add-apt-repository ppa:tualatrix/ppa
+        
+
+
 常用软件
 --------
 
     ::
 
-        sudo apt-get install aptitude  p7zip-full gvim gnome-sushi freemind smplayer wallch fcitx zim xbindkeys compizconfig-settings-manager gnome-core 7z unrar terminator git-core subversion chmsee python2.7-doc freepats debian-reference-zh-cn ubuntu-defaults-zh-cn debian-faq-zh-cn shutter gnome-tweak-tool amule manpages-zh python-docutils ubuntu-restricted-extras classicmenu-indicator indicator-weather pysdm ntfs-config pastie sopcast-player wine simple-lightdm-manager unityshell-rotated libnux-1.0-0 curl mongodb virtualbox startupmanager sysadmin-guide nautilus-terminal nautilus-open-termianl 
+        sudo apt-get install aptitude  p7zip-full gvim gnome-sushi freemind smplayer wallch fcitx zim xbindkeys compizconfig-settings-manager gnome-core 7z unrar terminator git-core subversion chmsee python2.7-doc freepats debian-reference-zh-cn ubuntu-defaults-zh-cn debian-faq-zh-cn shutter gnome-tweak-tool amule manpages-zh python-docutils wmctrl ubuntu-restricted-extras classicmenu-indicator indicator-weather pysdm ntfs-config pastie gconf-editor sopcast-player wine simple-lightdm-manager unityshell-rotated libnux-1.0-0 curl mongodb virtualbox startupmanager sysadmin-guide nautilus-terminal nautilus-open-termianl exuberant-ctags ubuntu-tweak
 
 
 
@@ -141,27 +176,6 @@ nvidia 驱动
         sudo apt-get install nvidia-current
 
 
-
-gvim 中文帮助
---------------
-
-
-    `下载中文帮助 <http://vimcdoc.sourceforge.net/>`_
-    
-    ::
-
-        tar zxvf vimcdoc-1.8.0.tar.gz
-        cd vimcdoc-1.8.0
-        ./vimcdoc.sh -i
-
-    
-    使用英文帮助
-
-        ::
-
-            :h help@en
-
-        
 
 修改grub2内核参数
 ------------------
