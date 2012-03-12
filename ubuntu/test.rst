@@ -35,3 +35,7 @@
    * displayed
    * horizontally
 
+:kbd:`Control-x Control-f`
+
+:kbd:`C-x C-f`
+

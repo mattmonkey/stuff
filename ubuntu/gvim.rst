@@ -64,3 +64,5 @@ javascript / ctag / taglist
             nnoremap <silent> <F9> :TlistToggle<CR>
             let g:tlist_javascript_settings = 'javascript;s:string;a:array;o:object;f:function'
 
+
+

@@ -24,6 +24,7 @@ Debian/Ubuntu 学习笔记
     :titlesonly:
 
     ubuntu/cmds
+    ubuntu/utility
     ubuntu/install
     ubuntu/ubuntu_solved
     ubuntu/dirs
@@ -37,6 +38,7 @@ Debian/Ubuntu 学习笔记
 
     ubuntu/git
     ubuntu/gvim
+    ubuntu/grub2
 
 
 文档制作
@@ -46,6 +48,8 @@ Debian/Ubuntu 学习笔记
     :titlesonly:
     
     ubuntu/test 
+    
+.. ubuntu/rstcheatsheet
 
 
 索引和检索    

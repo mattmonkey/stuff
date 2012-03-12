@@ -102,6 +102,12 @@ PPA
 
         sudo add-apt-repository ppa:hel-sheep/pastie
 
+#. rabbitvcs
+
+   ::
+        
+        sudo add-apt-repository ppa:rabbitvcs/ppa
+
 #. sopcast
 
     ::
@@ -159,7 +165,8 @@ PPA
 
     ::
 
-        sudo apt-get install aptitude  p7zip-full gvim gnome-sushi freemind smplayer wallch fcitx zim xbindkeys compizconfig-settings-manager gnome-core 7z unrar terminator git-core subversion chmsee python2.7-doc freepats debian-reference-zh-cn ubuntu-defaults-zh-cn debian-faq-zh-cn shutter gnome-tweak-tool amule manpages-zh python-docutils wmctrl ubuntu-restricted-extras classicmenu-indicator indicator-weather pysdm ntfs-config pastie gconf-editor sopcast-player wine simple-lightdm-manager unityshell-rotated libnux-1.0-0 curl mongodb virtualbox startupmanager sysadmin-guide nautilus-terminal nautilus-open-termianl exuberant-ctags ubuntu-tweak
+        sudo apt-get install aptitude  p7zip-full gvim gnome-sushi freemind smplayer wallch fcitx zim xbindkeys compizconfig-settings-manager gnome-core 7z unrar terminator git-core subversion chmsee python2.7-doc freepats debian-reference-zh-cn ubuntu-defaults-zh-cn debian-faq-zh-cn shutter gnome-tweak-tool amule manpages-zh python-docutils wmctrl ubuntu-restricted-extras classicmenu-indicator indicator-weather pysdm ntfs-config pastie gconf-editor sopcast-player wine simple-lightdm-manager unityshell-rotated libnux-1.0-0 curl mongodb virtualbox startupmanager sysadmin-guide nautilus-terminal nautilus-open-termianl exuberant-ctags ubuntu-tweak gitk qgit lighttpd rabbitvcs-core rabbitvcs-nautilus3 rabbitvcs-cli 
+
 
 
 
